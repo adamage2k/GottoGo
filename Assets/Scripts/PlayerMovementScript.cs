@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] float climbSpeed = 4;
     [SerializeField] GameObject bullet;
     [SerializeField] Transform bulletSpawn;
+    [SerializeField] float respawnDelay = 1f;
 
     float worldGravity;
     float climbGravity = 0;
@@ -118,6 +120,13 @@ public class PlayerMovementScript : MonoBehaviour
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
+            Invoke("ReloadScene", respawnDelay);
         }
+    }
+
+    void ReloadScene() 
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
