@@ -14,6 +14,7 @@ public class PlayerMovementScript : MonoBehaviour
     SpriteRenderer mySpriteRenderer;
     
     [SerializeField] ParticleSystem myDeathParticle;
+    [SerializeField] ParticleSystem mySplashParticle;
     [SerializeField] float runSpeed = 10;
     [SerializeField] float jumpForce = 5;
     [SerializeField] float climbSpeed = 4;
@@ -117,6 +118,16 @@ public class PlayerMovementScript : MonoBehaviour
         {
             isAlive = false;
             myDeathParticle.Play();
+            myAnimator.SetTrigger("Dying");
+            CameraShake.Instance.ShakeCamera(3f, .8f);
+            mySpriteRenderer.enabled = false;
+            Invoke("ReloadScene", respawnDelay);
+        }
+        else if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
+        {
+            isAlive = false;
+            //myDeathParticle.Play();
+            mySplashParticle.Play();
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
