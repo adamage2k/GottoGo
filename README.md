@@ -19,11 +19,11 @@ Shoot - 'Left Arrow' | | 'Right Arrow' <br />
 Climb - 'W' | | 'S' <br />
 
 ## Map Creation
-Map was ceated with "Rule Tile". It defines logic with placing sprites on the map. <br />
+Map was created with "Rule Tile". It defines logic with placing sprites on the map. <br />
 ![RuleTile](https://user-images.githubusercontent.com/93322108/209856573-9fec3759-2752-457b-b685-5c19f97aada4.png)
 
 ## Ideas
-Game is still in progress so dont judge plz :') <br />
+Game is still in progress so don't judge plz :') <br />
 ### My ideas for this game are:
 - New background <br />
 - New player sprite <br />
