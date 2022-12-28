@@ -16,6 +16,8 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] float runSpeed = 10;
     [SerializeField] float jumpForce = 5;
     [SerializeField] float climbSpeed = 4;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform bulletSpawn;
 
     float worldGravity;
     float climbGravity = 0;
@@ -58,6 +60,15 @@ public class PlayerMovementScript : MonoBehaviour
         else if (value.isPressed) 
         {
             myRigidbody.velocity += new Vector2(0f, jumpForce);
+        }
+    }
+
+    void OnFire(InputValue value) 
+    {
+        if(!isAlive) { return; }
+        if (value.isPressed) 
+        {
+            Instantiate(bullet, bulletSpawn.position, transform.rotation);
         }
     }
 
