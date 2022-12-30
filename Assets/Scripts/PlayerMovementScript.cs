@@ -121,7 +121,8 @@ public class PlayerMovementScript : MonoBehaviour
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
-            Invoke("ReloadScene", respawnDelay);
+            //Invoke("ReloadScene", respawnDelay);
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
         else if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
         {
@@ -131,7 +132,8 @@ public class PlayerMovementScript : MonoBehaviour
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
-            Invoke("ReloadScene", respawnDelay);
+            //Invoke("ReloadScene", respawnDelay);
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
 
