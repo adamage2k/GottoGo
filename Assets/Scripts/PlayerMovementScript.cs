@@ -21,6 +21,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] Transform bulletSpawn;
     [SerializeField] float respawnDelay = 1f;
+    [SerializeField] AudioClip deathSFX;
 
     float worldGravity;
     float climbGravity = 0;
@@ -114,26 +115,25 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Die() 
     {
-        if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards"))) 
+        if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards", "EnemyBullets"))) 
         {
             isAlive = false;
             myDeathParticle.Play();
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
-            //Invoke("ReloadScene", respawnDelay);
-            FindObjectOfType<GameSession>().ProcessPlayerDeath();
+            StartCoroutine(DeathDelay());
+            AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, 0.2f);
         }
         else if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
         {
             isAlive = false;
-            //myDeathParticle.Play();
             mySplashParticle.Play();
             myAnimator.SetTrigger("Dying");
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
-            //Invoke("ReloadScene", respawnDelay);
-            FindObjectOfType<GameSession>().ProcessPlayerDeath();
+            StartCoroutine(DeathDelay());
+            AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, 0.2f);
         }
     }
 
@@ -141,5 +141,11 @@ public class PlayerMovementScript : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    IEnumerator DeathDelay() 
+    {
+        yield return new WaitForSecondsRealtime(respawnDelay);
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 }
