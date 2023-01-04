@@ -22,6 +22,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] Transform bulletSpawn;
     [SerializeField] float respawnDelay = 1f;
     [SerializeField] AudioClip deathSFX;
+    [SerializeField] AudioClip jumpSFX;
 
     float worldGravity;
     float climbGravity = 0;
@@ -64,6 +65,7 @@ public class PlayerMovementScript : MonoBehaviour
         else if (value.isPressed) 
         {
             myRigidbody.velocity += new Vector2(0f, jumpForce);
+            GetComponent<AudioSource>().PlayOneShot(jumpSFX);
         }
     }
 
@@ -123,7 +125,7 @@ public class PlayerMovementScript : MonoBehaviour
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
             StartCoroutine(DeathDelay());
-            AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, 0.2f);
+            GetComponent<AudioSource>().PlayOneShot(deathSFX);
         }
         else if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
         {
@@ -133,7 +135,7 @@ public class PlayerMovementScript : MonoBehaviour
             CameraShake.Instance.ShakeCamera(3f, .8f);
             mySpriteRenderer.enabled = false;
             StartCoroutine(DeathDelay());
-            AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, 0.2f);
+            GetComponent<AudioSource>().PlayOneShot(deathSFX);
         }
     }
 

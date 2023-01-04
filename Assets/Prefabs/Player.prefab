@@ -5045,6 +5045,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 8221611556910667224}
   respawnDelay: 1
   deathSFX: {fileID: 8300000, guid: 9c3b408fca7f57347a3945158b4be42e, type: 3}
+  jumpSFX: {fileID: 8300000, guid: db223046db7453547a550628a047b6fd, type: 3}
 --- !u!61 &7314271630277784088
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5083,7 +5084,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
